@@ -18,7 +18,7 @@
       <td>{{book!.title | uppercase}}</td>
       <td>{{book!.author | lowercase}}</td>
       <td>{{book!.price}}</td>
-      <td><button class="btn btn-primary">Editer</button></td>
+      <td><button class="btn btn-primary" [routerLink]="['/book','edit',book.id]">Editer</button></td>
       <td><button class="btn btn-danger">Supprimer</button></td>
     </tr>
   </tbody>

@@ -1,1 +1,38 @@
-<p>edit-book works!</p>
+<h2>Editre le livre {{book?.title}}</h2>
+<form [formGroup]="editForm" (ngSubmit)="editBook()">
+  <div class="mb-3">
+    <label for="title" class="form-label">Titre</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      name="title"
+      formControlName="title" >
+      <span *ngIf="editForm.get('title')?.invalid && editForm.get('title')?.touched">Champ obligatoire</span>
+
+  </div>
+  <div class="mb-3">
+    <label for="author" class="form-label">Auteur</label>
+    <input
+      type="text"
+      class="form-control"
+      id="author"
+      name="author"
+      formControlName="author" >
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Prix</label>
+    <input
+      type="number"
+      class="form-control"
+      id="price"
+      name="price"
+      formControlName="price"
+      >
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="editForm.invalid">Valider</button>
+</form>
+
