@@ -1,1 +1,38 @@
-<p>add-book works!</p>
+<h2>Ajout d'un nouveau livre</h2>
+<form [formGroup]="addForm" (ngSubmit)="addBook()">
+  <div class="mb-3">
+    <label for="title" class="form-label">Titre</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      name="title"
+      formControlName="title" >
+      <span *ngIf="addForm.get('title')?.invalid && addForm.get('title')?.touched">Champ obligatoire</span>
+
+  </div>
+  <div class="mb-3">
+    <label for="author" class="form-label">Auteur</label>
+    <input
+      type="text"
+      class="form-control"
+      id="author"
+      name="author"
+      formControlName="author" >
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Prix</label>
+    <input
+      type="number"
+      class="form-control"
+      id="price"
+      name="price"
+      formControlName="price"
+      >
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="addForm.invalid">Valider</button>
+</form>
+
