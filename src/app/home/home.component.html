@@ -1,2 +1,19 @@
 
 <h1>Bienvenu dans l'application de gestion des livres!</h1>
+
+<form>
+  <div class="mb-3">
+    <label for="useremail" class="form-label" >Email</label>
+    <input type="email" class="form-control" id="useremail" #e>
+  </div>
+  <div class="mb-3">
+    <label for="userpassword" class="form-label">Mot de passe</label>
+    <input type="password" class="form-control" id="userpassword" #p>
+  </div>
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="login(e.value, p.value)">
+      Submit
+  </button>
+</form>

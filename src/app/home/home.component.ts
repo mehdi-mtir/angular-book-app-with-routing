@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CustomerService } from '../customer/customer.service';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  constructor(private service : CustomerService){}
+
+  login(email : string, password : string){
+    this.service.login(email, password);
+  }
 
 }

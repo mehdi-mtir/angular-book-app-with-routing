@@ -6,15 +6,10 @@ import { IBookDTO } from '../ibook-dto';
 
 @Injectable()
 export class BookService {
-  private books : Book[] = [];
   basicUrl = "http://localhost:3000";
-  booksUpdatedEvent = new Subject<Book[]>();
+  //booksUpdatedEvent = new Subject<Book[]>();
 
   constructor(private http : HttpClient) { }
-
-  getLastId = ():number=>{
-    return (this.books.length>0)?this.books[this.books.length - 1].id:0;
-  }
 
   //getBooks = ():Book[] => [...this.books]
   getBooks = (): Observable<Book[]>=> {
@@ -62,10 +57,10 @@ export class BookService {
   }
 
 
-  deleteBook = (id:number) =>{
-    this.books = this.books.filter(b=>b.id !== id);
-    this.booksUpdatedEvent.next(this.books);
-    console.log(this.books);
+  deleteBook = (id:number): Observable<Object> =>{
+    //this.books = this.books.filter(b=>b.id !== id);
+    return this.http.delete<Object>(`${this.basicUrl}/books/${id}`);
+    //console.log(this.books);
   }
 
 }

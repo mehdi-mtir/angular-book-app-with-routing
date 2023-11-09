@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './list-book.component.html',
   styleUrls: ['./list-book.component.css']
 })
-export class ListBookComponent implements OnInit, OnDestroy {
+export class ListBookComponent implements OnInit {
   books? : Book[];
   booksSubscription? : Subscription;
 
@@ -17,13 +17,20 @@ export class ListBookComponent implements OnInit, OnDestroy {
 
   deleteBook = (id : number)=>{
     if(confirm('Etes-vous sûre de voiloir supprimer le livre?'))
-      this.service.deleteBook(id);
+      this.service.deleteBook(id).subscribe(
+        ()=>{
+          this.service.getBooks().subscribe({
+            next : books => this.books = books,
+            error : err => console.error(err),
+          })
+        }
+    )
   }
 
 
-  ngOnDestroy(): void {
+  /*ngOnDestroy(): void {
     this.booksSubscription?.unsubscribe();
-  }
+  }*/
 
   ngOnInit(): void {
     this.service.getBooks().subscribe({
@@ -32,9 +39,9 @@ export class ListBookComponent implements OnInit, OnDestroy {
       complete : ()=> console.log('chargement complet')
     })
     //this.books = this.service.getBooks();
-    this.booksSubscription = this.service.booksUpdatedEvent.subscribe(
+    /*this.booksSubscription = this.service.booksUpdatedEvent.subscribe(
       books => this.books = books
-    );
+    );*/
   }
 
 }
