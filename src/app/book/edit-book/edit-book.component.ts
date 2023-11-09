@@ -10,7 +10,7 @@ import { Book } from '../book';
   styleUrls: ['./edit-book.component.css']
 })
 export class EditBookComponent implements OnInit {
-  book? : Book;
+  id?:number;
   editForm = this.fb.group(
     {
       title : ['', Validators.required],
@@ -26,25 +26,33 @@ export class EditBookComponent implements OnInit {
 
   editBook = ()=>{
     this.service.editBook(
-      new Book(this.book!.id,
-        this.editForm.value.title!,
-        this.editForm.value.author!,
-        +this.editForm.value.price!)
+      {
+        title : this.editForm.value.title!,
+        author : this.editForm.value.author!,
+        price : +this.editForm.value.price!
+      },
+      this.id!
+    ).subscribe(
+      ()=> this.router.navigate(['/book'])
     )
-    this.router.navigate(['/book']);
+
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       parametres => {
-        //console.log(parametres['id']);
-        this.book = this.service.getBookById(+parametres['id']);
-        this.editForm.setValue(
-          {
-            title : this.book!.title,
-            author : this.book!.author,
-            price : this.book!.price+''
-          }
+        console.log(parametres['id']);
+        this.service.getBookById(+parametres['id']).subscribe(
+          book => {
+            this.id = book.id;
+            this.editForm.setValue(
+                  {
+                    title : book!.title,
+                    author : book!.author,
+                    price : book!.price+''
+                  }
+        )
+        }
         )
       }
     )

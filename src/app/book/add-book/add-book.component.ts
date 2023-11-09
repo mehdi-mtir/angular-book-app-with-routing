@@ -25,14 +25,15 @@ export class AddBookComponent {
   }
   addBook = ()=>{
     this.service.addBook(
-      new Book(
-        (this.service.getLastId() + 1),
-        this.addForm.value.title!,
-        this.addForm.value.author!,
-        +this.addForm.value.price!
-      )
+      {
+        title : this.addForm.value.title!,
+        author : this.addForm.value.author!,
+        price : +this.addForm.value.price!
+      }
+    ).subscribe(
+      ()=> this.router.navigate(['/book'])
     );
-    this.router.navigate(['/book']);
+
   }
 
 

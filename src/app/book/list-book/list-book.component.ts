@@ -26,9 +26,11 @@ export class ListBookComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.service.getBooks().subscribe(
-      books => this.books = books
-    )
+    this.service.getBooks().subscribe({
+      next : books => this.books = books,
+      error : err => console.error(err),
+      complete : ()=> console.log('chargement complet')
+    })
     //this.books = this.service.getBooks();
     this.booksSubscription = this.service.booksUpdatedEvent.subscribe(
       books => this.books = books
