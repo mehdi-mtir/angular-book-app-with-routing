@@ -1,0 +1,22 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "price": 30
+    },
+    {
+      "id": 2,
+      "title": "Guerre et paix",
+      "author": "Tolstoi",
+      "price": 0
+    },
+    {
+      "id": 3,
+      "title": "Problème à 3 corps",
+      "author": "Liu Cixin",
+      "price": 20
+    }
+  ]
+}

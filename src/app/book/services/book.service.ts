@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../book';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class BookService {
-  private books : Book[] = [
-    new Book(1, 'Atomic Habits', 'James Clear', 30),
-    new Book(2, 'Guerre et paix', 'Tolstoi', 0),
-    new Book(3, 'Problème à 3 corps', 'Liu Cixin', 20)
-  ];
+  private books : Book[] = [];
+  basicUrl = "http://localhost:3000";
   booksUpdatedEvent = new Subject<Book[]>();
 
-  constructor() { }
+  constructor(private http : HttpClient) { }
 
   getLastId = ():number=>{
     return (this.books.length>0)?this.books[this.books.length - 1].id:0;
   }
 
-  getBooks = ():Book[]=> [...this.books];
+  //getBooks = ():Book[] => [...this.books]
+  getBooks = (): Observable<Book[]>=> {
+    return this.http.get<Book[]>(`${this.basicUrl}/books`);
+  }
 
   getBookById = (id:number):Book|undefined =>
         this.books.find(b=>b.id === id);
